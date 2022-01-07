@@ -4,12 +4,13 @@ from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QWidget, QApplication, QPushButton
 from random import randrange
+from UI import Ui_Form
 
 
-class RandomCircle(QWidget):
+class RandomCircle(QWidget, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.paint)
         self.do_paint = False
 
@@ -25,8 +26,9 @@ class RandomCircle(QWidget):
         self.repaint()
 
     def draw_flag(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
         d = randrange(10, 1000)
+        colors = (randrange(0, 255), randrange(0, 255), randrange(0, 255))
+        qp.setBrush(QColor(*colors))
         qp.drawEllipse(randrange(0, 1600), randrange(0, 900), d, d)
 
 if __name__ == '__main__':
